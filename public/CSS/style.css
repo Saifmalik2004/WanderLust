@@ -1,0 +1,281 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+
+}
+
+
+
+
+.container {
+    flex: 1 !important;
+}
+
+.content {
+    flex: 1 !important;
+}
+
+.fa-compass {
+    color: #fe424d;
+    
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+} 
+/* footer */
+
+.f-info-links a  {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.f-info-socials i {
+
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #222222;
+    opacity: 0.7;
+}
+.f-info-socials i:hover{
+    opacity: 1;
+}
+
+.f-info {
+    text-align: center;
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-btn {
+    background-color: #fe424d;
+    color: white;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
+}
+
+.search-btn:hover {
+    background-color: #fe424d;
+    color: white;
+}
+
+.search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+}
+
+.search-input {
+    border-radius: 25px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+
+}
+
+/* filter */
+#filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 75px;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+}
+
+.wrapper {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 80%; 
+    flex-wrap: nowrap;
+    /* justify-content: center;
+    align-items: center; */
+}
+
+.wrapper::-webkit-scrollbar {
+    height: 8px;
+    display: none; 
+};
+
+.wrapper::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.filter {
+    display: inline-block;
+    text-align: center;
+    margin-right: 2rem !important;
+    opacity: 0.7;
+    justify-content: center;
+}
+
+.filter:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.filter p {
+    font-size: 0.8rem;
+}
+
+.filter a {
+    text-decoration: none;
+    color: black;
+}
+
+.tax-info {
+    display: none;
+}
+
+.toggle-btn {
+    border: 2px solid rgb(180, 176, 176);
+    border-radius: 1rem;
+    height: 3.5rem;
+    padding: 1rem;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+@media (max-width: 1000px) {
+    .toggle-btn {
+        display: none;
+    }
+    
+    #filters {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .wrapper {
+        width: 100%;
+        overflow-x: scroll;
+    }
+
+    .filter {
+        display: inline-block;
+        margin-right: 1rem;
+        
+    }
+}
+
+
+
+
+
+/* card */
+
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+
+}
+
+.card-body {
+    padding: 0 !important;
+
+}
+
+.card-text p {
+    font-weight: 400;
+}
+
+.listing-link {
+    text-decoration: none;
+    color: black;
+}
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+/* card effect */
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+/* NEW PAGE */
+.add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+/* editpage */
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+;
+/* shoepage */
+
+
+
+.show-card {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.card .show-img {
+    height: 45vh;
+}
+
+.btns {
+    display: flex;
+    text-align: center;
+
+}
+
+.btn {
+
+    text-align: center !important;
+
+}
+
+.previmg {
+    width: 250px;
+    height: 150px;
+}
+
+/* map */
+#map {
+    height: 400px;
+    width: 90vh;
+    border-radius: 50px;
+    border: 5px solid black;
+}

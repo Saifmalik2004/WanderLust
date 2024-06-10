@@ -1,0 +1,94 @@
+<% layout("/layout/boilerplate")%>
+
+    <div class="row mt-3">
+        <div class="col-8 offset-2 ">
+
+            <h3>Create a New Listing</h3>
+
+
+            <form method="post" action="/listing" novalidate class="needs-validation" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="listing[title]" placeholder="Enter Title" required class="form-control">
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="listing[description]" placeholder="Enter description" required
+                        class="form-control"></textarea>
+                    <div class="invalid-feedback">
+                        Please provide Description.
+                    </div>
+                </div>
+
+                <div class="row">
+
+
+
+                    <div class="mb-3 col-md-6">
+                        <label for="image" class="form-label">Upload Image</label>
+                        <input type="file" name="listing[image]" class="form-control" required>
+
+
+                    </div>
+                    <div class="mb-3 col-md-6" ->
+                        <label for="category" class="form-label">Category</label>
+                        <select name="listing[category][type]" class="form-control form-select">
+                            <option value="not specify" selected> Select Category or skip</option>
+                            <option value="Pool">Pool</option>
+                            <option value="Mountain">Mountain</option>
+                            <option value="Cabin">Cabin</option>
+                            <option value="Room">Room</option>
+                            <option value="Dome">Dome</option>
+                            <option value="Beach">Beach</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Arctic">Arctic</option>
+                            <option value="Cities">Cities</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label for="price" class="form-label">Price</label>
+                        <input name="listing[price]" placeholder="Enter price" required class="form-control">
+                        <div class="invalid-feedback">
+                            Please enter a valid price
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3 col-md-8">
+                        <label for="country" class="form-label">Country</label>
+                        <input type="text" name="listing[country]" placeholder="Enter Country" required
+                            class="form-control">
+                        <div class="invalid-feedback">
+                            Please provide a valid Country.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" name="listing[location]" placeholder="Enter Location" required
+                        class="form-control">
+
+                </div>
+
+
+
+
+                <button class=" btn btn-dark add-btn mt-3" type="submit">Add</button>
+
+            </form>
+            <br>
+
+        </div>
+    </div>

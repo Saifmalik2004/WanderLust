@@ -1,0 +1,37 @@
+<% if(success && success.length) { %>
+    
+    <div class="alert alert-success col-6 offset-3" role="alert" id="success-alert">
+        
+        <%= success %>
+    </div>
+    <script>
+        // JavaScript to hide the alert after 10 seconds
+        setTimeout(function() {
+            var alert = document.getElementById('success-alert');
+            if (alert) {
+                alert.style.display = 'none';
+            }
+        }, 10000); // 10000 milliseconds = 10 seconds
+    </script>
+    <% } %>
+
+    <% if(error && error.length) { %>
+    
+        <div class="alert alert-danger col-6 offset-3" role="alert" id="danger-alert">
+            
+            <%= error %>
+        </div>
+      
+        <script>
+              // JavaScript to hide the alert after 10 seconds
+            setTimeout(function() {
+                var alert = document.getElementById('danger-alert');
+                if (alert) {
+                    alert.style.display = 'none';
+                }
+            }, 10000); // 10000 milliseconds = 10 seconds
+        </script>
+        <% } %>
+
+
+    
