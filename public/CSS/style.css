@@ -255,6 +255,8 @@ body {
     height: 45vh;
 }
 
+
+
 .btns {
     display: flex;
     text-align: center;
@@ -278,4 +280,28 @@ body {
     width: 90vh;
     border-radius: 50px;
     border: 5px solid black;
+}
+@media (max-width: 1200px) {
+    #map {
+        height: 300px;
+        width: 70vh;
+    }
+}
+@media (max-width: 900px) {
+    #map {
+        height: 300px;
+        width: 40vh;
+    }
+}
+@media (max-width: 420px) {
+    #map {
+        height: 200px;
+        width: 30vh;
+       
+    }
+    .card .show-img {
+        height: 28vh;
+        
+    }
+   
 }
