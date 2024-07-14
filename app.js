@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const path = require("path");
 const methodOverride = require("method-override");
 const session = require("express-session");
-const mongostore = require("connect-mongo");
+
 const flash = require("connect-flash");
 const ejsmate = require("ejs-mate");
 
