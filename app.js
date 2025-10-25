@@ -30,7 +30,6 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsmate);
 
 const dbUrl = process.env.atlasDB;
-const mongo = 'mongodb://127.0.0.1:27017/wanderlust';
 
 async function main() {
     await mongoose.connect(dbUrl);
@@ -83,6 +82,11 @@ app.use((req, res, next) => {
     res.locals.currUser = req.user;
     res.locals.query = req.query.query;
     next();
+});
+
+// Redirect root to /listing so the listings page opens first
+app.get('/', (req, res) => {
+    return res.redirect('/listing');
 });
 
 app.use("/listing", listingrouter);
