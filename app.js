@@ -1,106 +1,104 @@
 if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
+  require("dotenv").config();
 }
 
 const express = require("express");
-const app = express();
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const session = require("express-session");
-
 const flash = require("connect-flash");
 const ejsmate = require("ejs-mate");
-
-const ExpressError = require("./utils/expressError.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const User = require("./models/user.js");
-
-const listingrouter = require("./routes/listingRoute.js");
-const reviewrouter = require("./routes/reviewRoute.js");
-const userrouter = require("./routes/userRoute.js");
 const MongoStore = require("connect-mongo");
 
-app.set("views", path.join(__dirname, "views"));
+const ExpressError = require("./utils/expressError");
+const User = require("./models/user");
+
+const listingrouter = require("./routes/listingRoute");
+const reviewrouter = require("./routes/reviewRoute");
+const userrouter = require("./routes/userRoute");
+
+const app = express();
+
+// View engine setup
+app.engine("ejs", ejsmate);
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+// Middleware
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.engine("ejs", ejsmate);
 
+// MongoDB Connection
 const dbUrl = process.env.atlasDB;
-
 async function main() {
-    await mongoose.connect(dbUrl);
+  await mongoose.connect(dbUrl);
+  console.log("✅ Connected to MongoDB");
 }
+main().catch((err) => console.log("❌ MongoDB connection error:", err));
 
-main().then(() => {
-    console.log("connected to DB");
-}).catch((err) => {
-    console.log("some error:", err);
-});
-
-const secret = process.env.secret;
+// Session store
+const secret = process.env.secret || "defaultsecret";
 const store = MongoStore.create({
-    mongoUrl: dbUrl,
-    crypto: {
-        secret: secret
-    },
-    touchAfter: 24 * 3600
+  mongoUrl: dbUrl,
+  crypto: { secret },
+  touchAfter: 24 * 3600, // time in seconds
 });
+store.on("error", (err) => console.log("Session Store Error:", err));
 
 const sessionOptions = {
-    store,
-    secret: secret,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        httpOnly: true
-    }
+  store,
+  secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  },
 };
-
-store.on("error", (err) => {
-    console.log("error in mongo session store", err);
-});
 
 app.use(session(sessionOptions));
 app.use(flash());
 
+// Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Flash + current user middleware
 app.use((req, res, next) => {
-    res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");
-    res.locals.currUser = req.user;
-    res.locals.query = req.query.query;
-    next();
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
+  res.locals.query = req.query.query || "";
+  next();
 });
 
-// Redirect root to /listing so the listings page opens first
-app.get('/', (req, res) => {
-    return res.redirect('/listing');
-});
-
+// Routes
+app.get("/", (req, res) => res.redirect("/listing"));
 app.use("/listing", listingrouter);
 app.use("/listing/:id/review", reviewrouter);
 app.use("/", userrouter);
 
+// 404 Handler
 app.all("*", (req, res, next) => {
-    next(new ExpressError(404, "Page not Found!"));
+  next(new ExpressError(404, "Page Not Found!"));
 });
 
+// Error Handler
 app.use((err, req, res, next) => {
-    let { statusCode = 500, message = "something went wrong" } = err;
-    res.status(statusCode).render("error.ejs", { message });
+  const { statusCode = 500, message = "Something went wrong" } = err;
+  res.status(statusCode).render("error", { message });
 });
 
-module.exports = app;
-
+// ✅ Azure (or any host) will inject PORT in env
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
